@@ -45,5 +45,9 @@ namespace Academy
 			//PadRight() выравнивает строку по левому борту. От Padding - выравнивание/набивка.
 			//"Набивает справа от нашего значения"
 		}
+		public virtual string ToFileString()
+		{
+			return $"{LastName};{FirstName};{Age}";
+		}
 	}
 }

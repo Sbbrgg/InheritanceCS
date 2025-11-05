@@ -38,5 +38,9 @@ namespace Academy
 			return base.ToString() +
 			$"{Subject.ToString().PadRight(16)}";
         }
-    }
+		public override string ToFileString()
+		{
+			return $"{base.ToFileString()};{Subject}";
+		}
+	}
 }

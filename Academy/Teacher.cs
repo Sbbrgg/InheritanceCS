@@ -42,6 +42,9 @@ namespace Academy
 			return base.ToString() +
 			$"{Speciality.ToString().PadRight(24)}{Expirience.ToString().PadRight(8)}";
 		}
-
+		public override string ToFileString()
+		{
+			return $"{base.ToFileString()};{Speciality};{Expirience}";
+		}
 	}
 }

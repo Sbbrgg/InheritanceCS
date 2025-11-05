@@ -2,6 +2,7 @@
 //#define INHERITANCE_2
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,17 @@ namespace Academy
 				Console.WriteLine(group[i]);
 				Console.WriteLine(delimiter);
 			}
+			SaveToFile(group, "Group.txt");
 		}
+		static void SaveToFile(Human[] group, string fileName)
+		{
+			StreamWriter writer = new StreamWriter(fileName);
+			for(int i = 0; i < group.Length; i++)
+			{
+				writer.WriteLine(group[i].GetType().Name + "|" + group[i].ToFileString());
+			}
+			writer.Close();
+		}
+		
 	}
 }
