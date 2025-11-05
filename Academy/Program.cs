@@ -1,5 +1,6 @@
 ﻿//#define INHERITANCE_1
 //#define INHERITANCE_2
+//#define SAVE_TO_FILE
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,8 +50,9 @@ namespace Academy
 			/*Base-class pointers: Generalisation (Upcast - привидение дочернего объекта)
 
 			*/
+#if SAVE_TO_FILE
 			Human[] group =
-			{
+				{
 				new Student("Pinkman", "Jessie", 22, "Chemistry", "WW_220", 90, 95),
 				new Teacher("White", "Walter", 50, "Chemistry", 25),
 				new Graduate("Schreder", "Hank", 40, "Cryminalisic", "OBN", 50, 60, "How to catch Heisenberg"),
@@ -66,8 +68,17 @@ namespace Academy
 				Console.WriteLine(group[i]);
 				Console.WriteLine(delimiter);
 			}
-			SaveToFile(group, "Group.txt");
+			SaveToFile(group, "Group.txt"); 
+#endif
+			Human[] Group = LoadFromFile("Group.txt");
+			for(int i = 0; i < Group.Length; i++)
+			{
+				Console.WriteLine(Group[i]);
+				Console.WriteLine(delimiter);
+			}
 		}
+
+
 		static void SaveToFile(Human[] group, string fileName)
 		{
 			StreamWriter writer = new StreamWriter(fileName);
@@ -77,6 +88,68 @@ namespace Academy
 			}
 			writer.Close();
 		}
-		
+		static Human[] LoadFromFile(string filename)
+		{
+			int lines = CountLineInFile(filename);
+			Human[] group = new Human[lines];
+			int i = 0;
+
+			StreamReader reader = new StreamReader(filename);
+			string line;
+			while((line = reader.ReadLine())!=null)
+			{
+				if(line.Length == 0) continue;
+				string[] parts = line.Split('|');
+				if(parts.Length < 2) continue;
+
+				group[i] = CreateHuman(parts[0], parts[1]);
+				i++;
+			}
+
+			reader.Close();
+			return group;
+		}
+		static int CountLineInFile(string filename)
+		{
+			int count = 0;
+			StreamReader reader = new StreamReader(filename);
+			while(reader.ReadLine()!= null)
+				count++;
+			reader.Close();
+			return count;
+		}
+		static Human CreateHuman(string typeName, string data)
+		{
+			string[] fields = data.Split(';');
+			switch(typeName)
+			{
+				case "Human":
+					return new Human
+						(
+							fields[0], fields[1], Convert.ToInt32(fields[2])
+						);
+				case "Student":
+					return new Student
+						(
+							fields[0], fields[1], Convert.ToInt32(fields[2]),
+							fields[3], fields[4], Convert.ToDouble(fields[5]),
+							Convert.ToDouble(fields[6])
+						);
+				case "Teacher":
+					return new Teacher
+						(
+							fields[0], fields[1], Convert.ToInt32(fields[2]),
+							fields[3], Convert.ToInt32(fields[4])
+						);
+				case "Graduate":
+					return new Graduate
+						(
+							fields[0], fields[1], Convert.ToInt32(fields[2]),
+							fields[3], fields[4], Convert.ToDouble(fields[5]),
+							Convert.ToDouble(fields[6]), fields[7]
+						);
+			}
+			return null;
+		}
 	}
 }
