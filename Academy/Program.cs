@@ -1,9 +1,11 @@
 ﻿//#define INHERITANCE_1
 //#define INHERITANCE_2
 //#define SAVE_TO_FILE
+#define LOAD_FROM_FILE
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,12 +72,14 @@ namespace Academy
 			}
 			SaveToFile(group, "Group.txt"); 
 #endif
+#if LOAD_FROM_FILE
 			Human[] Group = LoadFromFile("Group.txt");
-			for(int i = 0; i < Group.Length; i++)
+			for (int i = 0; i < Group.Length; i++)
 			{
 				Console.WriteLine(Group[i]);
 				Console.WriteLine(delimiter);
-			}
+			} 
+#endif
 		}
 
 
@@ -87,6 +91,7 @@ namespace Academy
 				writer.WriteLine(group[i].GetType().Name + "|" + group[i].ToFileString());
 			}
 			writer.Close();
+			Process.Start("notepad", fileName);
 		}
 		static Human[] LoadFromFile(string filename)
 		{
