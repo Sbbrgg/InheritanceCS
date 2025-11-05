@@ -41,9 +41,15 @@ namespace Academy
 				//Split('.') разделяет 'Academy.Type' по точке на массив строк,
 				//и из этого мы берём последний элемент.
 				$"{base.ToString().Split('.').Last()}:".PadRight(12) +
-				$"{LastName.PadRight(16, '.')}{FirstName.PadRight(10)}{Age.ToString().PadRight(5)}";
+				$"{LastName.PadRight(16/*, '.'*/)}{FirstName.PadRight(10)}{Age.ToString().PadRight(5)}";
 			//PadRight() выравнивает строку по левому борту. От Padding - выравнивание/набивка.
 			//"Набивает справа от нашего значения"
+		}
+		public virtual string ToStringCSV()
+		{
+			return 
+				this.GetType().ToString().Split('.').Last() + "," 
+				+ $"{LastName},{FirstName},{Age}";
 		}
 	}
 }
