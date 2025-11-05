@@ -10,7 +10,7 @@ namespace Academy
 {
 	internal class Program
 	{
-		static readonly string delimiter = "\n---------------------------------------------------\n";
+		static readonly string delimiter = "\n------------------------------------------------------------------------------------------------------------------\n";
 		static void Main(string[] args)
 		{
 #if INHERITANCE_1

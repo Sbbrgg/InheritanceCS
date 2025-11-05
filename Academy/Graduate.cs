@@ -33,5 +33,10 @@ namespace Academy
 			base.Info();
 			Console.WriteLine(Subject);
 		}
-	}
+        public override string ToString()
+        {
+			return base.ToString() +
+			$"{Subject.ToString().PadRight(16)}";
+        }
+    }
 }
