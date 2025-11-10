@@ -57,8 +57,6 @@ namespace AbstractGeometry
 			Circle circle = new Circle(35, startX, startY + verticalSpacing * 6, 2, Color.Orange);
 			circle.Info(e);
 
-			Console.WriteLine("\nНажмите любую клавишу для выхода...");
-			Console.ReadKey();
 		}
 		[DllImport("kernel32.dll")]
 		public static extern IntPtr GetConsoleWindow();
