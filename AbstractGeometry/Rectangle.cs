@@ -38,7 +38,7 @@ namespace AbstractGeometry
 			Pen pen = new Pen(Color.White);
 			SolidBrush brush = new SolidBrush(Color);
 			e.Graphics.DrawRectangle(pen, StartX, StartY, (float)Width, (float)Height);
-			e.Graphics.FillRectangle(brush, StartX, StartY, (float)Width, (int)Height);
+			//e.Graphics.FillRectangle(brush, StartX, StartY, (float)Width, (int)Height);
 		}
 		public override void Info(System.Windows.Forms.PaintEventArgs e)
 		{
