@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AbstractGeometry
 {
-	internal class Rectangle: Shape
+	internal class Rectangle: Shape, IHaveDiagonal
 	{
 		double width;
 		double height;
@@ -33,6 +33,20 @@ namespace AbstractGeometry
 		}
 		public override double GetArea() => width * height;
 		public override double GetPerimeter() => 2 * (width + height);
+		public double GetDiagonal()
+		{
+			return Math.Sqrt(Math.Pow(Width, 2) + Math.Pow(Height, 2));
+		}
+		public void DrawDiagonal(System.Windows.Forms.PaintEventArgs e)
+		{
+			Pen pen = new Pen(Color, 1);
+			e.Graphics.DrawLine
+				(pen,
+				StartX, StartY,
+				StartX + (int)Width, StartY + (int)Height
+				);
+
+		}
 		public override void Draw(System.Windows.Forms.PaintEventArgs e)
 		{
 			Pen pen = new Pen(Color.White);
@@ -44,8 +58,10 @@ namespace AbstractGeometry
 		{
 			Console.WriteLine(this.GetType().ToString().Split('.').Last() + ":");
 			Console.WriteLine($"Ширина: {Width}");
-			Console.WriteLine($"Ширина: {Height}");
+			Console.WriteLine($"Высота: {Height}");
+			Console.WriteLine($"Диагональ: {Height}");
 			base.Info(e);
+			DrawDiagonal(e);
 		}
 	}
 }

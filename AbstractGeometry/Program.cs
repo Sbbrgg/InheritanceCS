@@ -1,4 +1,5 @@
-﻿using System;
+﻿//#define ABSTRACT_1
+using System;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace AbstractGeometry
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n");
-			Console.WriteLine();
-			Console.WriteLine();
-			Console.WriteLine();
+			//Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n");
+			//Console.WriteLine();
+			//Console.WriteLine();
+			//Console.WriteLine();
 			IntPtr hwnd = GetConsoleWindow();
 			Graphics graphics = Graphics.FromHwnd(hwnd);
 			System.Drawing.Rectangle window_rect = new System.Drawing.Rectangle
@@ -27,6 +28,7 @@ namespace AbstractGeometry
 			PaintEventArgs e = new PaintEventArgs(graphics, window_rect);
 			//e.Graphics.DrawRectangle(new Pen(Color.Red), 300, 100, 500, 300);
 
+#if ABSTRACT_1
 			Rectangle rectangle = new Rectangle(100, 40, 300, 50, 3, Color.AliceBlue);
 			rectangle.Info(e);
 
@@ -39,7 +41,25 @@ namespace AbstractGeometry
 			IsoscalesTriangle iso = new IsoscalesTriangle(75, 150, 300, 200, 3, Color.Green);
 			iso.Info(e);
 
-			EquilateralTriangle equ = new EquilateralTriangle(50, 550, 200, 4, Color.Green);
+			EquilateralTriangle equ = new EquilateralTriangle(50, 550, 200, 4, Color.Green); 
+#endif
+			Shape[] shapes =
+			{
+				new Rectangle(100, 40, 300, 50, 3, Color.AliceBlue),
+				new Square(50, 500, 50, 5, Color.Red),
+				new Circle(100, 700, 50, 5, Color.Yellow),
+				new IsoscalesTriangle(75, 150, 300, 200, 3, Color.Green),
+				new EquilateralTriangle(50, 550, 200, 4, Color.Green)
+			};
+			for (int i = 0; i < shapes.Length; i++)
+			{
+				//shapes[i].Info(e);
+				if ((shapes[i] is IHaveHeight))
+				{
+					shapes[i].Info(e);
+				}
+			}
+
 		}
 		[DllImport("kernel32.dll")]
 		public static extern IntPtr GetConsoleWindow();

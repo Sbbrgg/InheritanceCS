@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace AbstractGeometry
 {
-	internal class IsoscalesTriangle : Triangle
+	internal class IsoscalesTriangle : Triangle, IHaveHeight
 	{
 		double @base;
 		double side;
@@ -35,6 +35,16 @@ namespace AbstractGeometry
 		public override double GetHeight() => Math.Sqrt(Math.Pow(Side, 2) - Math.Pow(Base/2,2));
 		public override double GetArea() => Base * GetHeight() / 2;
 		public override double GetPerimeter() => 2 * Side + Base;
+		public virtual void DrawHeight(System.Windows.Forms.PaintEventArgs e)
+		{
+			Pen pen = new Pen(Color.Blue, 3);
+			e.Graphics.DrawLine
+				(
+					pen,
+					StartX + (int)Base / 2, StartY,
+					StartX + (int)Base / 2, StartY + (int)GetHeight()
+				);
+		}
 		public override void Draw(PaintEventArgs e)
 		{
 			Pen pen = new Pen(Color, LineWidth);
@@ -51,6 +61,7 @@ namespace AbstractGeometry
 			Console.WriteLine($"Основние:\t{Base}");
 			Console.WriteLine($"Сторона:\t{Side}");
 			base.Info(e);
+			DrawHeight(e);
 		}
 	}
 }
